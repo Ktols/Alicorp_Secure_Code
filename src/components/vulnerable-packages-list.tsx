@@ -9,7 +9,7 @@ import { Badge } from "./ui/badge";
 
 export default function VulnerablePackagesList() {
   const handleExport = () => {
-    const headers = ['Package', 'Vulnerable Versions'];
+    const headers = ['Paquete', 'Versiones Vulnerables'];
     const csvContent = [
       headers.join(','),
       ...VULNERABLE_PACKAGES.map(p => `${p.name},"${p.versions.join(', ')}"`),
@@ -20,7 +20,7 @@ export default function VulnerablePackagesList() {
     if (link.download !== undefined) {
       const url = URL.createObjectURL(blob);
       link.setAttribute('href', url);
-      link.setAttribute('download', 'vulnerable-packages.csv');
+      link.setAttribute('download', 'paquetes-vulnerables.csv');
       link.style.visibility = 'hidden';
       document.body.appendChild(link);
       link.click();
@@ -33,15 +33,15 @@ export default function VulnerablePackagesList() {
       <div className="flex justify-end">
         <Button onClick={handleExport} variant="outline">
           <Download className="mr-2 h-4 w-4" />
-          Export to CSV
+          Exportar a CSV
         </Button>
       </div>
       <ScrollArea className="h-[60vh] rounded-md border">
         <Table>
           <TableHeader className="sticky top-0 bg-background">
             <TableRow>
-              <TableHead>Package Name</TableHead>
-              <TableHead>Vulnerable Versions</TableHead>
+              <TableHead>Nombre del Paquete</TableHead>
+              <TableHead>Versiones Vulnerables</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
