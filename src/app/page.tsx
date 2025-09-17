@@ -57,7 +57,10 @@ export default function Home() {
         </div>
       </main>
       <footer className="text-center p-4 text-sm text-muted-foreground">
-        Construido con Next.js y Firebase Genkit. Todo el análisis se realiza en el lado del cliente.
+        <p>Construido con Next.js. Todo el análisis se realiza en el lado del cliente.</p>
+        <p className="mt-2 text-xs">
+          <strong>Descargo de responsabilidad:</strong> Esta herramienta es una ayuda. Un resultado "seguro" no garantiza la ausencia de vulnerabilidades. Pueden existir falsos positivos.
+        </p>
       </footer>
     </div>
   );
