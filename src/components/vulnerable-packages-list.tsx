@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "./ui/badge";
 import { CardFooter } from "./ui/card";
+import { PaginationControls } from "./pagination-controls";
 
 export default function VulnerablePackagesList() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -75,31 +76,14 @@ export default function VulnerablePackagesList() {
           </TableBody>
         </Table>
       </div>
-      {totalPages > 1 && (
-        <CardFooter className="flex items-center justify-between pt-4 px-0">
-          <div className="text-sm text-muted-foreground">
-            Página {currentPage} de {totalPages}
-          </div>
-          <div className="flex items-center gap-2">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => handlePageChange(currentPage - 1)}
-              disabled={currentPage === 1}
-            >
-              Anterior
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => handlePageChange(currentPage + 1)}
-              disabled={currentPage === totalPages}
-            >
-              Siguiente
-            </Button>
-          </div>
-        </CardFooter>
-      )}
+      <CardFooter className="px-0">
+        <PaginationControls
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+          className="w-full"
+        />
+      </CardFooter>
     </div>
   );
 }
