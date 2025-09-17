@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Download } from "lucide-react";
-import { VULNERABLE_PACKAGES, type VulnerablePackage } from "@/lib/vulnerabilities";
+import { VULNERABLE_PACKAGES } from "@/lib/vulnerabilities";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "./ui/badge";
@@ -17,7 +17,7 @@ export default function VulnerablePackagesList() {
     const headers = ['Paquete', 'Versiones Vulnerables'];
     const csvContent = [
       headers.join(','),
-      ...VULNERABLE_PACKAGES.map(p => `${p.name},"${p.versions.join(', ')}"`),
+      ...VULNERABLE_PACKAGES.map(p => `"${p.name}","${p.versions}"`),
     ].join('\n');
 
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
@@ -61,13 +61,13 @@ export default function VulnerablePackagesList() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {currentItems.map((pkg: VulnerablePackage) => (
+            {currentItems.map((pkg) => (
               <TableRow key={pkg.name}>
                 <TableCell className="font-medium">{pkg.name}</TableCell>
                 <TableCell>
                     <div className="flex flex-wrap gap-1">
-                        {pkg.versions.map(version => (
-                            <Badge key={version} variant="destructive">{version}</Badge>
+                        {pkg.versions.split(',').map(version => (
+                            <Badge key={version.trim()} variant="destructive">{version.trim()}</Badge>
                         ))}
                     </div>
                 </TableCell>

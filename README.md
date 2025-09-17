@@ -1,6 +1,6 @@
 # Alicorp Secure Code - Escáner de Vulnerabilidades
 
-Herramienta para analizar las dependencias de proyectos de Node.js en busca de vulnerabilidades conocidas, utilizando una base de datos interna y proporcionando recomendaciones de seguridad generadas por IA.
+Herramienta para analizar las dependencias de proyectos de Node.js en busca de vulnerabilidades conocidas, utilizando una base de datos interna y proporcionando recomendaciones de seguridad.
 
 ## Propósito
 
@@ -8,19 +8,18 @@ Esta aplicación permite a los desarrolladores subir sus archivos `package.json`
 
 1.  **Analizar Dependencias:** Identificar todas las dependencias del proyecto.
 2.  **Detectar Vulnerabilidades:** Comparar las dependencias con una base de datos de paquetes con vulnerabilidades conocidas.
-3.  **Obtener Recomendaciones de IA:** Si se encuentran vulnerabilidades, la IA de Genkit genera un resumen de seguridad y recomienda los pasos a seguir, incluyendo el contacto con los equipos de seguridad de Alicorp.
+3.  **Obtener Recomendaciones:** Si se encuentran vulnerabilidades, se muestra una recomendación para contactar a los equipos de seguridad de Alicorp.
 4.  **Exportar Resultados:** Generar un reporte en formato CSV con los resultados del análisis.
 
 Todo el procesamiento de archivos se realiza localmente en el navegador del cliente para garantizar la privacidad y seguridad del código.
 
 ## Tecnologías Utilizadas
 
-- **Framework:** [Next.js](https://nextjs.org/) (con App Router)
+- **Framework:** [Next.js](https://nextjs.org/) (con App Router y salida estática)
 - **Lenguaje:** [TypeScript](https://www.typescriptlang.org/)
 - **UI:** [React](https://react.dev/)
 - **Estilos:** [Tailwind CSS](https://tailwindcss.com/)
 - **Componentes:** [ShadCN UI](https://ui.shadcn.com/)
-- **Inteligencia Artificial:** [Firebase Genkit](https://firebase.google.com/docs/genkit) (con el modelo Gemini de Google AI)
 - **Iconos:** [Lucide React](https://lucide.dev/guide/packages/lucide-react)
 
 ## Cómo Levantar en Local
@@ -45,13 +44,7 @@ Sigue estos pasos para ejecutar la aplicación en tu entorno de desarrollo local
     npm install
     ```
 
-3.  **Configurar Variables de Entorno:**
-    Crea un archivo `.env` en la raíz del proyecto y añade tu clave de API para el modelo de IA.
-    ```env
-    GEMINI_API_KEY=tu_api_key_aqui
-    ```
-
-4.  **Ejecutar el Servidor de Desarrollo:**
+3.  **Ejecutar el Servidor de Desarrollo:**
     ```bash
     npm run dev
     ```
@@ -74,22 +67,41 @@ Puedes construir una imagen de Docker y ejecutar la aplicación en un contenedor
     ```
     La aplicación estará disponible en `http://localhost:3000`.
 
-## Despliegue
+## Despliegue en GitHub Pages
 
-### GitHub Pages
+Esta aplicación está configurada para ser exportada como un sitio estático, lo que la hace **totalmente compatible con GitHub Pages**.
 
-**No es posible desplegar esta aplicación en GitHub Pages.** GitHub Pages está diseñado para sitios estáticos, y esta aplicación utiliza funcionalidades de backend de Next.js (Server Actions) para comunicarse con el servicio de IA de Genkit.
+### Pasos para el Despliegue
 
-### Plataformas Recomendadas
+1.  **Construir la Aplicación Estática:**
+    Ejecuta el siguiente comando para generar los archivos estáticos en una carpeta `out`.
+    ```bash
+    npm run build
+    ```
 
-Para desplegar esta aplicación, necesitas un proveedor de hosting que soporte aplicaciones de Node.js, como:
+2.  **Subir la Carpeta `out` a GitHub:**
+    Asegúrate de que tu repositorio de GitHub esté configurado para servir desde la rama `gh-pages`. Puedes subir el contenido de la carpeta `out` a esa rama.
+    
+    Una forma sencilla de hacerlo es usando el paquete `gh-pages`:
+    
+    a. Instala `gh-pages`:
+    ```bash
+    npm install gh-pages --save-dev
+    ```
 
-- **Vercel:** La plataforma recomendada para Next.js.
-- **Firebase App Hosting:** Se integra de forma nativa con el ecosistema de Firebase.
-- Cualquier otro servicio de nube que soporte contenedores de Docker o aplicaciones Node.js (por ejemplo, Google Cloud Run, AWS, etc.).
+    b. Agrega un script a tu `package.json`:
+    ```json
+    "scripts": {
+      "deploy": "gh-pages -d out"
+    }
+    ```
 
-El proceso general de despliegue sería:
-1.  Sube tu código a un repositorio de Git (GitHub, GitLab, etc.).
-2.  Conecta tu repositorio a la plataforma de hosting elegida.
-3.  Configura las variables de entorno (como `GEMINI_API_KEY`) en la configuración de tu sitio en la plataforma de hosting.
-4.  Inicia el despliegue.
+    c. Ejecuta el script de despliegue:
+    ```bash
+    npm run build && npm run deploy
+    ```
+
+3.  **Configurar el Repositorio en GitHub:**
+    - Ve a la configuración de tu repositorio en GitHub (`Settings` > `Pages`).
+    - En la sección "Build and deployment", asegúrate de que la fuente sea `Deploy from a branch` y selecciona la rama `gh-pages` con la carpeta `/ (root)`.
+    - Guarda los cambios. Tu sitio debería estar disponible en `https://<tu-usuario>.github.io/<tu-repositorio>/` en unos minutos.
