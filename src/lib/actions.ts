@@ -25,6 +25,8 @@ export async function getAiSummary(vulnerabilityAnalysisResults: string) {
     return result;
   } catch (error) {
     console.error('Error getting AI summary:', error);
-    return { recommendations: 'Could not generate security summary due to an error.' };
+    return { recommendations: 'No se pudo generar el resumen de seguridad debido a un error.' };
   }
 }
+
+    

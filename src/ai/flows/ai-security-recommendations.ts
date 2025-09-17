@@ -1,4 +1,3 @@
-// src/ai/flows/ai-security-recommendations.ts
 'use server';
 /**
  * @fileOverview Provides AI-driven security recommendations based on vulnerability analysis.
@@ -43,13 +42,15 @@ const prompt = ai.definePrompt({
   name: 'securityRecommendationsPrompt',
   input: {schema: SecurityRecommendationsInputSchema},
   output: {schema: SecurityRecommendationsOutputSchema},
-  prompt: `You are a security expert providing recommendations based on vulnerability analysis results.
+  prompt: `You are a security expert providing a summary and recommendations based on vulnerability analysis results.
 
-Vulnerability Analysis Results:
+The user has scanned their project and found the vulnerabilities listed below.
+
+Vulnerability Analysis Results (JSON format):
 {{{vulnerabilityAnalysisResults}}}
 
-Based on these results, provide actionable security recommendations to mitigate identified risks.
-`, // Modified prompt here
+Based on these results, provide a concise summary of the findings. If vulnerabilities were found, you MUST instruct the user to contact the Cybersecurity team or the transition team for remediation guidance. You MUST include the transition team's email address, which is gta@alicorp.com.pe, in your response. The response should be in Spanish.
+`,
 });
 
 const securityRecommendationsFlow = ai.defineFlow(
@@ -63,3 +64,5 @@ const securityRecommendationsFlow = ai.defineFlow(
     return output!;
   }
 );
+
+    
