@@ -8,16 +8,17 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Badge } from "./ui/badge";
 import { CardFooter } from "./ui/card";
 import { PaginationControls } from "./pagination-controls";
+import { CardDescription } from "./ui/card";
 
 export default function VulnerablePackagesList() {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 15;
 
   const handleExport = () => {
-    const headers = ['Paquete', 'Versiones Vulnerables'];
+    const headers = ['Paquete', 'Versiones Vulnerables', 'Descripción'];
     const csvContent = [
       headers.join(','),
-      ...VULNERABLE_PACKAGES.map(p => `"${p.name}","${p.versions}"`),
+      ...VULNERABLE_PACKAGES.map(p => `"${p.name}","${p.versions}","${p.description}"`),
     ].join('\n');
 
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
@@ -46,7 +47,10 @@ export default function VulnerablePackagesList() {
 
   return (
     <div className="space-y-4">
-      <div className="flex justify-end">
+      <div className="flex justify-between items-center">
+        <CardDescription>
+          Se encontraron {VULNERABLE_PACKAGES.length} paquetes vulnerables en la base de datos.
+        </CardDescription>
         <Button onClick={handleExport} variant="outline">
           <Download className="mr-2 h-4 w-4" />
           Exportar a CSV
@@ -57,6 +61,7 @@ export default function VulnerablePackagesList() {
           <TableHeader>
             <TableRow>
               <TableHead>Nombre del Paquete</TableHead>
+              <TableHead>Descripción</TableHead>
               <TableHead>Versiones Vulnerables</TableHead>
             </TableRow>
           </TableHeader>
@@ -64,6 +69,7 @@ export default function VulnerablePackagesList() {
             {currentItems.map((pkg) => (
               <TableRow key={pkg.name}>
                 <TableCell className="font-medium">{pkg.name}</TableCell>
+                <TableCell className="text-muted-foreground">{pkg.description}</TableCell>
                 <TableCell>
                     <div className="flex flex-wrap gap-1">
                         {(pkg.versions || '').split(',').map(version => (
