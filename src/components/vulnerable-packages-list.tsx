@@ -1,13 +1,17 @@
 "use client";
 
+import { useState } from "react";
 import { Download } from "lucide-react";
 import { VULNERABLE_PACKAGES, type VulnerablePackage } from "@/lib/vulnerabilities";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { ScrollArea } from "./ui/scroll-area";
 import { Badge } from "./ui/badge";
+import { CardFooter } from "./ui/card";
 
 export default function VulnerablePackagesList() {
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 15;
+
   const handleExport = () => {
     const headers = ['Paquete', 'Versiones Vulnerables'];
     const csvContent = [
@@ -28,6 +32,17 @@ export default function VulnerablePackagesList() {
     }
   };
 
+  const totalPages = Math.ceil(VULNERABLE_PACKAGES.length / itemsPerPage);
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = VULNERABLE_PACKAGES.slice(indexOfFirstItem, indexOfLastItem);
+
+  const handlePageChange = (newPage: number) => {
+    if (newPage >= 1 && newPage <= totalPages) {
+      setCurrentPage(newPage);
+    }
+  };
+
   return (
     <div className="space-y-4">
       <div className="flex justify-end">
@@ -36,16 +51,16 @@ export default function VulnerablePackagesList() {
           Exportar a CSV
         </Button>
       </div>
-      <ScrollArea className="h-[60vh] rounded-md border">
+      <div className="rounded-md border">
         <Table>
-          <TableHeader className="sticky top-0 bg-background">
+          <TableHeader>
             <TableRow>
               <TableHead>Nombre del Paquete</TableHead>
               <TableHead>Versiones Vulnerables</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {VULNERABLE_PACKAGES.map((pkg: VulnerablePackage) => (
+            {currentItems.map((pkg: VulnerablePackage) => (
               <TableRow key={pkg.name}>
                 <TableCell className="font-medium">{pkg.name}</TableCell>
                 <TableCell>
@@ -59,7 +74,32 @@ export default function VulnerablePackagesList() {
             ))}
           </TableBody>
         </Table>
-      </ScrollArea>
+      </div>
+      {totalPages > 1 && (
+        <CardFooter className="flex items-center justify-between pt-4 px-0">
+          <div className="text-sm text-muted-foreground">
+            Página {currentPage} de {totalPages}
+          </div>
+          <div className="flex items-center gap-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+            >
+              Anterior
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+            >
+              Siguiente
+            </Button>
+          </div>
+        </CardFooter>
+      )}
     </div>
   );
 }
