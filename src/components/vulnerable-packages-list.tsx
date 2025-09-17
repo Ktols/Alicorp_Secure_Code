@@ -66,7 +66,7 @@ export default function VulnerablePackagesList() {
                 <TableCell className="font-medium">{pkg.name}</TableCell>
                 <TableCell>
                     <div className="flex flex-wrap gap-1">
-                        {pkg.versions.split(',').map(version => (
+                        {(pkg.versions || '').split(',').map(version => (
                             <Badge key={version.trim()} variant="destructive">{version.trim()}</Badge>
                         ))}
                     </div>
