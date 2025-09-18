@@ -4,12 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack -p 9002",
-    "build": "next build",
+    "build": "cross-env NEXT_PRIVATE_DEBUG_PREPROCESS_IMG_SRC=1 next build",
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
     "export": "next build",
-    "deploy": "next build && gh-pages -d out"
+    "deploy": "npm run build && gh-pages -d out"
   },
   "dependencies": {
     "@hookform/resolvers": "^4.1.3",
@@ -53,6 +53,7 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "cross-env": "^7.0.3",
     "gh-pages": "^6.1.1",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
