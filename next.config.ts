@@ -3,6 +3,7 @@ import type {NextConfig} from 'next';
 const nextConfig: NextConfig = {
   output: 'export',
   basePath: '/Alicorp_Secure_Code',
+  assetPrefix: '/Alicorp_Secure_Code/',
   typescript: {
     ignoreBuildErrors: true,
   },
