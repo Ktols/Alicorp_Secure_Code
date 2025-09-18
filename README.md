@@ -50,23 +50,6 @@ Sigue estos pasos para ejecutar la aplicación en tu entorno de desarrollo local
     ```
     La aplicación estará disponible en `http://localhost:9002`.
 
-## Cómo Levantar con Docker
-
-Puedes construir una imagen de Docker y ejecutar la aplicación en un contenedor.
-
-1.  **Construir la Imagen Docker:**
-    Desde la raíz del proyecto, ejecuta el siguiente comando:
-    ```bash
-    docker build -t alicorp-secure-code .
-    ```
-
-2.  **Ejecutar el Contenedor:**
-    Una vez construida la imagen, ejecuta el siguiente comando para iniciar el contenedor:
-    ```bash
-    docker run -p 3000:3000 -d alicorp-secure-code
-    ```
-    La aplicación estará disponible en `http://localhost:3000`.
-
 ## Despliegue en GitHub Pages
 
 Esta aplicación está configurada para ser exportada como un sitio estático, lo que la hace **totalmente compatible con GitHub Pages**.
@@ -79,27 +62,12 @@ Esta aplicación está configurada para ser exportada como un sitio estático, l
     npm run build
     ```
 
-2.  **Subir la Carpeta `out` a GitHub:**
-    Asegúrate de que tu repositorio de GitHub esté configurado para servir desde la rama `gh-pages`. Puedes subir el contenido de la carpeta `out` a esa rama.
-    
-    Una forma sencilla de hacerlo es usando el paquete `gh-pages`:
-    
-    a. Instala `gh-pages`:
+2.  **Desplegar en GitHub Pages:**
+    Usa el script `deploy` incluido en `package.json`, que se encarga de todo el proceso.
     ```bash
-    npm install gh-pages --save-dev
+    npm run deploy
     ```
-
-    b. Agrega un script a tu `package.json`:
-    ```json
-    "scripts": {
-      "deploy": "gh-pages -d out"
-    }
-    ```
-
-    c. Ejecuta el script de despliegue:
-    ```bash
-    npm run build && npm run deploy
-    ```
+    Este comando publicará el contenido de la carpeta `out` en la rama `gh-pages` de tu repositorio.
 
 3.  **Configurar el Repositorio en GitHub:**
     - Ve a la configuración de tu repositorio en GitHub (`Settings` > `Pages`).
