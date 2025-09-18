@@ -8,7 +8,7 @@ Esta aplicación permite a los desarrolladores subir sus archivos `package.json`
 
 1.  **Analizar Dependencias:** Identificar todas las dependencias del proyecto.
 2.  **Detectar Vulnerabilidades:** Comparar las dependencias con una base de datos de paquetes con vulnerabilidades conocidas.
-3.  **Obtener Recomendaciones:** Si se encuentran vulnerabilidades, se muestra una recomendación para contactar a los equipos de seguridad de Alicorp.
+3.  **Obtener Recomendaciones:** Si se encuentran vulnerabilities, se muestra una recomendación para contactar a los equipos de seguridad de Alicorp.
 4.  **Exportar Resultados:** Generar un reporte en formato CSV con los resultados del análisis.
 
 Todo el procesamiento de archivos se realiza localmente en el navegador del cliente para garantizar la privacidad y seguridad del código.
@@ -54,22 +54,10 @@ Sigue estos pasos para ejecutar la aplicación en tu entorno de desarrollo local
 
 Esta aplicación está configurada para ser exportada como un sitio estático, lo que la hace **totalmente compatible con GitHub Pages**.
 
-### Pasos para el Despliegue
+El despliegue se realiza automáticamente a través de **GitHub Actions** cada vez que se suben cambios a la rama `main`. El workflow de Actions se encargará de construir y desplegar el sitio en la rama `gh-pages`.
 
-1.  **Construir la Aplicación Estática:**
-    Ejecuta el siguiente comando para generar los archivos estáticos en una carpeta `out`.
-    ```bash
-    npm run build
-    ```
-
-2.  **Desplegar en GitHub Pages:**
-    Usa el script `deploy` incluido en `package.json`, que se encarga de todo el proceso.
-    ```bash
-    npm run deploy
-    ```
-    Este comando publicará el contenido de la carpeta `out` en la rama `gh-pages` de tu repositorio.
-
-3.  **Configurar el Repositorio en GitHub:**
-    - Ve a la configuración de tu repositorio en GitHub (`Settings` > `Pages`).
-    - En la sección "Build and deployment", asegúrate de que la fuente sea `Deploy from a branch` y selecciona la rama `gh-pages` con la carpeta `/ (root)`.
-    - Guarda los cambios. Tu sitio debería estar disponible en `https://<tu-usuario>.github.io/<tu-repositorio>/` en unos minutos.
+### Configurar el Repositorio en GitHub:
+Asegúrate de que tu repositorio esté configurado para usar GitHub Pages:
+- Ve a la configuración de tu repositorio en GitHub (`Settings` > `Pages`).
+- En la sección "Build and deployment", asegúrate de que la fuente sea `Deploy from a branch` y selecciona la rama `gh-pages` con la carpeta `/ (root)`.
+- Guarda los cambios. Tu sitio debería estar disponible en `https://<tu-usuario>.github.io/<tu-repositorio>/` en unos minutos después de cada `push` a `main`.
