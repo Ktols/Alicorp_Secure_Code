@@ -52,12 +52,25 @@ Sigue estos pasos para ejecutar la aplicación en tu entorno de desarrollo local
 
 ## Despliegue en GitHub Pages
 
-Esta aplicación está configurada para ser exportada como un sitio estático, lo que la hace **totalmente compatible con GitHub Pages**.
+Esta aplicación está configurada para ser exportada como un sitio estático, lo que la hace compatible con GitHub Pages.
 
-El despliegue se realiza automáticamente a través de **GitHub Actions** cada vez que se suben cambios a la rama `main`. El workflow de Actions se encargará de construir y desplegar el sitio en la rama `gh-pages`.
+### Pasos para el Despliegue Manual
+
+1.  **Instalar `gh-pages`:**
+    Si no lo has hecho, instala la dependencia de desarrollo:
+    ```bash
+    npm install gh-pages --save-dev
+    ```
+
+2.  **Ejecutar el Script de Despliegue:**
+    El proyecto incluye un script que simplifica el proceso. Ejecútalo desde la raíz de tu proyecto:
+    ```bash
+    npm run deploy
+    ```
+    Este comando primero construirá el sitio estático (`next build`) y luego publicará el contenido de la carpeta `out` en la rama `gh-pages` de tu repositorio.
 
 ### Configurar el Repositorio en GitHub:
-Asegúrate de que tu repositorio esté configurado para usar GitHub Pages:
+Asegúrate de que tu repositorio esté configurado para usar GitHub Pages desde la rama correcta:
 - Ve a la configuración de tu repositorio en GitHub (`Settings` > `Pages`).
 - En la sección "Build and deployment", asegúrate de que la fuente sea `Deploy from a branch` y selecciona la rama `gh-pages` con la carpeta `/ (root)`.
-- Guarda los cambios. Tu sitio debería estar disponible en `https://<tu-usuario>.github.io/<tu-repositorio>/` en unos minutos después de cada `push` a `main`.
+- Guarda los cambios. Tu sitio debería estar disponible en `https://<tu-usuario>.github.io/<tu-repositorio>/` en unos minutos después del despliegue.
