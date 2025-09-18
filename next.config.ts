@@ -1,30 +1,13 @@
 import type {NextConfig} from 'next';
 
+const repoName = 'Alicorp_Secure_Code';
+
 const nextConfig: NextConfig = {
   output: 'export',
-  basePath: '/Alicorp_Secure_Code',
+  basePath: `/${repoName}`,
+  assetPrefix: `/${repoName}/`,
   images: {
     unoptimized: true,
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'placehold.co',
-        port: '',
-        pathname: '/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'images.unsplash.com',
-        port: '',
-        pathname: '/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'picsum.photos',
-        port: '',
-        pathname: '/**',
-      },
-    ],
   },
   typescript: {
     ignoreBuildErrors: true,
